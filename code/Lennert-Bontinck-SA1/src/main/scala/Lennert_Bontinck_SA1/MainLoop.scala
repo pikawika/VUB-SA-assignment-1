@@ -33,15 +33,15 @@ object MainLoop extends App {
   /** Dummy sink that prints its input. */
   val dummySink: Sink[MavenLibraryDependencyCount, Future[Done]] = Sink.foreach(println)
 
-  /** Sink that saves its input. */
+  /** Sink that saves its input, override existing file. */
   val saveSink: Sink[ByteString, Future[IOResult]] =
-    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(CREATE, WRITE, APPEND))
+    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE))
 
   // --------------------- END Sinks ---------------------
 
   // --------------------- START runnable graph ---------------------
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
-  val runnableGraph: RunnableGraph[Future[Done]] =
+  val runnableGraph: RunnableGraph[Future[IOResult]] =
     MavenDependenciesSource.source
       // Create substreams grouped which contain all records for a library.
       //    Max substreams = Int.MAX per requirement of the assignment.
@@ -54,13 +54,14 @@ object MainLoop extends App {
       .mergeSubstreams
 
       // Display output
-      .toMat(dummySink)(Keep.right)
+      //.toMat(dummySink)(Keep.right)
 
       // Save output
-      //.via(StringToByteEncoder.flowStringToByteString)
-      //.to(saveSink)
+      .via(StringToByteEncoder.flowStringToByteString)
+      .to(saveSink)
 
-  runnableGraph.run().foreach(_ => actorSystem.terminate())
+  runnableGraph.run()
+  //runnableGraph.run().foreach(_ => actorSystem.terminate())
 
   // --------------------- END runnable graph ---------------------
 }

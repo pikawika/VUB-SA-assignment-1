@@ -13,8 +13,8 @@ object ExtractedFileSource {
   private val pathExtractedFileFolder: String = "src/main/resources"
 
   /** Path of the extracted file. */
-  private val pathExtractedFile: Path = Paths.get(s"$pathExtractedFileFolder/maven_dependencies_first_1000.txt")
-  //private val pathExtractedFile: Path = Paths.get(s"$pathExtractedFileFolder/maven_dependencies.txt")
+  //private val pathExtractedFile: Path = Paths.get(s"$pathExtractedFileFolder/maven_dependencies_first_1000.txt")
+  private val pathExtractedFile: Path = Paths.get(s"$pathExtractedFileFolder/maven_dependencies.txt")
 
   /** Make raw ByteString source from input file. */
   val sourceExtractedFile: Source[ByteString, Future[IOResult]] = FileIO.fromPath(pathExtractedFile)

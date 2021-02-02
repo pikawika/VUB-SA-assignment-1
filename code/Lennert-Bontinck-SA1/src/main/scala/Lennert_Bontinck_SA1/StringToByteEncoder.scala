@@ -6,6 +6,6 @@ import akka.util.ByteString
 
 object StringToByteEncoder {
   val flowStringToByteString: Flow[MavenLibraryDependencyCount, ByteString, NotUsed] = Flow[MavenLibraryDependencyCount].map(libraryCount => {
-    ByteString(s"${libraryCount.library} --> Compile: # Provided: # Runtime: # Test: #\n".getBytes("UTF-8"))
+    ByteString(s"${libraryCount.library} --> Compile: ${libraryCount.compile} Provided: ${libraryCount.provided} Runtime: ${libraryCount.runtime} Test: ${libraryCount.test}\n".getBytes("UTF-8"))
   })
 }
