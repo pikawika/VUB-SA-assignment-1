@@ -11,7 +11,8 @@ object ListOfMavenDependencies {
   /** Flow to convert raw Bytestring to a list of Bytestrings, using CSV Parser. */
   private val flowCsvParsing: Flow[ByteString, List[ByteString], NotUsed] = CsvParsing.lineScanner()
 
-  /** Flow to convert a CSV parsed list of Bytestrings to a map of strings containing: library, dependency and type. */
+  /** Flow to convert a CSV parsed list of Bytestrings to a map of strings containing:
+   *    library, dependency and type. */
   private val flowCsvMapper: Flow[List[ByteString], Map[String, String], NotUsed] =
     CsvToMap.withHeadersAsStrings(StandardCharsets.UTF_8, "library", "dependency", "dependency_type")
 
@@ -23,7 +24,8 @@ object ListOfMavenDependencies {
       tempMap.size == filteredEmptyValues.size
     })
     .map(dependency => {
-      // Create objects from the record using the alternative constructor from the companion object of MavenDependency
+      // Create objects from the record using the alternative constructor
+      //    from the companion object of MavenDependency
       MavenDependency(dependency)
     })
 
