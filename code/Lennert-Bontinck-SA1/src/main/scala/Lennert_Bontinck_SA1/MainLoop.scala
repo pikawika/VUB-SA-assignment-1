@@ -42,15 +42,22 @@ object MainLoop extends App {
 
   /** Flow to convert a CSV parsed list of Bytestrings to a map of strings containing: library, dependency and type */
   val flowCsvMapper: Flow[List[ByteString], Map[String, String], NotUsed] =
-    CsvToMap.withHeadersAsStrings(StandardCharsets.UTF_8, "library", "dependency", "type")
+    CsvToMap.withHeadersAsStrings(StandardCharsets.UTF_8, "library", "dependency", "dependency_type")
 
-  /** Dummy sink that prints the library of each record */
-  val sink: Sink[Map[String, String], Future[Done]] = Sink.foreach((x:Map[String, String]) => println("library = " + x("library")))
+  /** Flow to convert a map of strings containing: library, dependency and type to a MavenDependency object */
+  val flowMappedCsvToMavenDependency: Flow[Map[String, String], MavenDependency, NotUsed] = Flow[Map[String, String]].
+    map(dependency => {
+      MavenDependency(dependency)
+    })
+
+  /** Dummy sink that prints the input */
+  val dummySink: Sink[MavenDependency, Future[Done]] = Sink.foreach((x:MavenDependency) => println("single input: " + x))
 
   val runnableGraph: RunnableGraph[Future[Done]] = sourceExtractedFile
     .via(flowCsvParsing)
     .via(flowCsvMapper)
-    .toMat(sink)(Keep.right)
+    .via(flowMappedCsvToMavenDependency)
+    .toMat(dummySink)(Keep.right)
 
   runnableGraph.run().foreach(_ => actorSystem.terminate())
 
