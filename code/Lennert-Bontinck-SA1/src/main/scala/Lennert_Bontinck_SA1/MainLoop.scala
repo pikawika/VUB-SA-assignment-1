@@ -41,6 +41,7 @@ object MainLoop extends App {
 
   // --------------------- START runnable graph ---------------------
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
+    //change Future to Done if using dummy sink, to IOResult if using save sink
   val runnableGraph: RunnableGraph[Future[IOResult]] =
     MavenDependenciesSource.source
       // Create substreams grouped which contain all records for a library.
@@ -61,7 +62,7 @@ object MainLoop extends App {
       .to(saveSink)
 
   runnableGraph.run()
-  //runnableGraph.run().foreach(_ => actorSystem.terminate())
+  //runnableGraph.run().onComplete(_ => actorSystem.terminate())
 
   // --------------------- END runnable graph ---------------------
 }
