@@ -8,6 +8,6 @@ import scala.concurrent.Future
 
 object MavenDependenciesSource {
   /** Source received from using the Extracted File To MavenDependencies Composed Flow. */
-  val source: Source[MavenDependency, Future[IOResult]] = ExtractedFile.sourceExtractedFile
+  val source: Source[MavenDependency, Future[IOResult]] = ExtractedFileSource.sourceExtractedFile
     .via(ListOfMavenDependencies.composedFlowExtractedFileToMavenDependencies)
 }

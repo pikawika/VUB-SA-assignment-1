@@ -16,8 +16,14 @@ object ListOfMavenDependencies {
     CsvToMap.withHeadersAsStrings(StandardCharsets.UTF_8, "library", "dependency", "dependency_type")
 
   /** Flow to convert a map of strings containing: library, dependency and type to a MavenDependency object. */
-  private val flowMappedCsvToMavenDependency: Flow[Map[String, String], MavenDependency, NotUsed] = Flow[Map[String, String]].
-    map(dependency => {
+  private val flowMappedCsvToMavenDependency: Flow[Map[String, String], MavenDependency, NotUsed] = Flow[Map[String, String]]
+    .filter(tempMap => {
+      // Don't allow records which have empty values
+      val filteredEmptyValues = tempMap.values.filter(_.nonEmpty)
+      tempMap.size == filteredEmptyValues.size
+    })
+    .map(dependency => {
+      // Create objects from the record using the alternative constructor from the companion object of MavenDependency
       MavenDependency(dependency)
     })
 

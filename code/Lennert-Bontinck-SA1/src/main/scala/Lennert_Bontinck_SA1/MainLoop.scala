@@ -1,10 +1,6 @@
 package Lennert_Bontinck_SA1
 
 // Required imports
-
-import java.nio.charset.StandardCharsets
-import java.nio.file.{Path, Paths}
-
 import akka.{Done}
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer}

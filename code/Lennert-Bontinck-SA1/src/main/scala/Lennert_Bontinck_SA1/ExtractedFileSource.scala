@@ -8,7 +8,7 @@ import akka.util.ByteString
 
 import scala.concurrent.Future
 
-object ExtractedFile {
+object ExtractedFileSource {
   /** Path of the folder containing the extracted file. */
   private val pathExtractedFileFolder: String = "src/main/resources"
 
