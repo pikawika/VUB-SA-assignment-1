@@ -2,10 +2,15 @@ package Lennert_Bontinck_SA1
 
 // Required imports
 
-import akka.Done
+import java.nio.file.Paths
+
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.{Keep, RunnableGraph, Sink, Source}
+import akka.stream.{ActorMaterializer, IOResult}
+import akka.stream.scaladsl.{FileIO, Keep, RunnableGraph, Sink}
+import akka.util.ByteString
+import java.nio.file.StandardOpenOption._
+
+import akka.Done
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 
@@ -24,27 +29,36 @@ object MainLoop extends App {
   // Sink[In, Materializer]
   // --------------------- END Help ---------------------
 
-  // --------------------- START Global variables ---------------------
+  // --------------------- START Sinks ---------------------
   /** Dummy sink that prints its input. */
-  val dummySink: Sink[String, Future[Done]] = Sink.foreach(println)
+  val dummySink: Sink[MavenLibraryDependencyCount, Future[Done]] = Sink.foreach(println)
 
-  // --------------------- END Global variables ---------------------
+  /** Sink that saves its input. */
+  val saveSink: Sink[ByteString, Future[IOResult]] =
+    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(CREATE, WRITE, APPEND))
 
+  // --------------------- END Sinks ---------------------
 
   // --------------------- START runnable graph ---------------------
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
-  val runnableGraph: RunnableGraph[Future[Done]] = {
-    // Get source of Maven Dependencies (already converted to objects)
+  val runnableGraph: RunnableGraph[Future[Done]] =
     MavenDependenciesSource.source
       // Create substreams grouped which contain all records for a library.
       //    Max substreams = Int.MAX per requirement of the assignment.
       .groupBy(maxSubstreams = Int.MaxValue, _.library)
+
       // Push the substreams to the flow dependencies Flow Shape.
       .via(FlowDependenciesShape.flowDependencies)
+
       // Merge the substreams back to a regular stream
       .mergeSubstreams
+
+      // Display output
       .toMat(dummySink)(Keep.right)
-  }
+
+      // Save output
+      //.via(StringToByteEncoder.flowStringToByteString)
+      //.to(saveSink)
 
   runnableGraph.run().foreach(_ => actorSystem.terminate())
 
