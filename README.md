@@ -13,6 +13,6 @@ This is the GitHub repository for the first assignment of the Software Architect
 > - **Affiliation**: VUB - Master Computer Science: AI
 
 ## Important files
-> - [Self-contained PDF file (coming soon)](Bontinck_Lennert_568702_VUB_SA1.pdf)
+> - [Self-contained PDF file (coming soon)](Lennert-Bontinck-SA1.pdf)
 > - [Written code](code/)
 > - [Assignment PDF](assignment01.pdf)
