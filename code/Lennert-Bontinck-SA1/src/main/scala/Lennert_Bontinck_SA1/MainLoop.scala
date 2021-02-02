@@ -26,7 +26,7 @@ object MainLoop extends App {
 
   // --------------------- START Global variables ---------------------
   /** Dummy sink that prints its input. */
-  val dummySink: Sink[MavenDependency, Future[Done]] = Sink.foreach((x: MavenDependency) => println("single input: " + x))
+  val dummySink: Sink[String, Future[Done]] = Sink.foreach(println)
 
   // --------------------- END Global variables ---------------------
 
