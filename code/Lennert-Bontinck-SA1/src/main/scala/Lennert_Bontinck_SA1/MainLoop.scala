@@ -30,7 +30,7 @@ object MainLoop extends App {
   // --------------------- START Sinks ---------------------
   /** Sink that saves its input, override existing file. */
   val saveSink: Sink[ByteString, Future[IOResult]] =
-    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE))
+    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"))
 
   // --------------------- END Sinks ---------------------
 
@@ -53,7 +53,10 @@ object MainLoop extends App {
       .via(StringToByteEncoder.flowStringToByteString)
       .to(saveSink)
 
+  //Using the following, the stream will not terminate but file will save OK
   //runnableGraph.run()
+
+  //using the following, the stream will terminate but the file will not save
   runnableGraph.run().onComplete(_ => actorSystem.terminate())
 
   // --------------------- END runnable graph ---------------------
