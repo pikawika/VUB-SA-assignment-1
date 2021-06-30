@@ -2,7 +2,7 @@ package Lennert_Bontinck_SA1
 
 
 import akka.stream.IOResult
-import akka.stream.scaladsl.{Source}
+import akka.stream.scaladsl.Source
 
 import scala.concurrent.Future
 

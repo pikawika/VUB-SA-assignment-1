@@ -1,19 +1,14 @@
 package Lennert_Bontinck_SA1
 
 // Required imports
-
-import java.nio.file.Paths
-
+import akka.Done
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, IOResult}
-import akka.stream.scaladsl.{FileIO, RunnableGraph, Sink}
-import akka.util.ByteString
-import java.nio.file.StandardOpenOption._
-
+import akka.stream.scaladsl.{Keep, RunnableGraph, Sink}
+import akka.stream.ActorMaterializer
 import scala.concurrent.{ExecutionContextExecutor, Future}
 
 /** This is the main loop used to execute the code for the first assignment. */
-object MainLoop extends App {
+object MainLoopDisplay extends App {
   // Needed implicit values to work with AKKA streams and runnabla graphs.
   // "Default" setup, meaning 1 dispatcher per actor and same ActorMaterializer from WPOs.
   implicit val actorSystem: ActorSystem = ActorSystem("Lennert-Bontinck-SA1-ActorSystem")
@@ -28,16 +23,15 @@ object MainLoop extends App {
   // --------------------- END Help ---------------------
 
   // --------------------- START Sinks ---------------------
-  /** Sink that saves its input, override existing file. */
-  val saveSink: Sink[ByteString, Future[IOResult]] =
-    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE))
+  /** Dummy sink that prints its input. */
+  val dummySink: Sink[MavenLibraryDependencyCount, Future[Done]] = Sink.foreach(println)
 
   // --------------------- END Sinks ---------------------
 
   // --------------------- START runnable graph ---------------------
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
     //change Future to Done if using dummy sink, to IOResult if using save sink
-  val runnableGraph: RunnableGraph[Future[IOResult]] =
+  val runnableGraph: RunnableGraph[Future[Done]] =
     MavenDependenciesSource.source
       // Create substreams grouped which contain all records for a library.
       //    Max substreams = Int.MAX per requirement of the assignment.
@@ -49,11 +43,9 @@ object MainLoop extends App {
       // Merge the substreams back to a regular stream
       .mergeSubstreams
 
-      // Save output
-      .via(StringToByteEncoder.flowStringToByteString)
-      .to(saveSink)
+      // Display output
+      .toMat(dummySink)(Keep.right)
 
-  //runnableGraph.run()
   runnableGraph.run().onComplete(_ => actorSystem.terminate())
 
   // --------------------- END runnable graph ---------------------
