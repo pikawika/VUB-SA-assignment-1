@@ -6,7 +6,7 @@ import java.nio.file.Paths
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, IOResult}
-import akka.stream.scaladsl.{FileIO, RunnableGraph, Sink}
+import akka.stream.scaladsl.{FileIO, RunnableGraph, Sink, Keep}
 import akka.util.ByteString
 import java.nio.file.StandardOpenOption._
 
@@ -50,27 +50,17 @@ object MainLoop extends App {
       // Merge the substreams back to a regular stream
       .mergeSubstreams
 
-      // Save output
+      // Make savable bytes
       .via(StringToByteEncoder.flowStringToByteString)
-      .to(saveSink)
 
-  //Using the following, the stream will not terminate but file will save OK
-  //runnableGraph.run()
+      // Save to save sink
+      //    NOTE: there were some issues due to using to instead of toMat.
+      //      This was resolved after communication with the TA's who pointed to:
+      //      https://stackoverflow.com/a/49012739
+      .toMat(saveSink)(Keep.right)
 
-  //using the following, the stream will terminate but the file will not save
-  //.onComplete(_ => actorSystem.terminate())
-
-  //Waiting 5 seconds will make the file saved ?
-  val materialized = runnableGraph.run()
-
-  materialized.onComplete {
-    case Success(_) =>
-      Thread.sleep(5000)
-      actorSystem.terminate()
-    case Failure(e) =>
-      println(s"Failure: ${e.getMessage}")
-      actorSystem.terminate()
-  }
+  // Run graph and terminate on completion
+  runnableGraph.run().onComplete(_ => actorSystem.terminate())
 
   // --------------------- END runnable graph ---------------------
 }
