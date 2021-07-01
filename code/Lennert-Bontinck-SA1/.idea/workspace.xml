@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f08fb83-7db5-4a9a-9569-87929f36b5d3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/result/Lennert-Bontinck-SA1-output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/result/Lennert-Bontinck-SA1-output.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainLoop.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainLoop.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainLoopDisplay.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainLoopDisplay.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +106,7 @@
       <workItem from="1612191231855" duration="765000" />
       <workItem from="1612263562882" duration="28928000" />
       <workItem from="1625081995792" duration="615000" />
-      <workItem from="1625140870775" duration="1600000" />
+      <workItem from="1625140870775" duration="1642000" />
     </task>
     <servers />
   </component>

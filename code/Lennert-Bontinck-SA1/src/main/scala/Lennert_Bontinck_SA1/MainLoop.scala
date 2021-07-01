@@ -60,7 +60,7 @@ object MainLoop extends App {
   //using the following, the stream will terminate but the file will not save
   //.onComplete(_ => actorSystem.terminate())
 
-  //Waiting 10 seconds will make the file saved ?
+  //Waiting 5 seconds will make the file saved ?
   val materialized = runnableGraph.run()
 
   materialized.onComplete {
