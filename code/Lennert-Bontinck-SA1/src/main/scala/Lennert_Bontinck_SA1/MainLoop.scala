@@ -11,6 +11,7 @@ import akka.util.ByteString
 import java.nio.file.StandardOpenOption._
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
+import scala.util.{Failure, Success}
 
 /** This is the main loop used to execute the code for the first assignment. */
 object MainLoop extends App {
@@ -30,7 +31,7 @@ object MainLoop extends App {
   // --------------------- START Sinks ---------------------
   /** Sink that saves its input, override existing file. */
   val saveSink: Sink[ByteString, Future[IOResult]] =
-    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"))
+    FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE))
 
   // --------------------- END Sinks ---------------------
 
@@ -57,7 +58,19 @@ object MainLoop extends App {
   //runnableGraph.run()
 
   //using the following, the stream will terminate but the file will not save
-  runnableGraph.run().onComplete(_ => actorSystem.terminate())
+  //.onComplete(_ => actorSystem.terminate())
+
+  //Waiting 10 seconds will make the file saved ?
+  val materialized = runnableGraph.run()
+
+  materialized.onComplete {
+    case Success(_) =>
+      Thread.sleep(5000)
+      actorSystem.terminate()
+    case Failure(e) =>
+      println(s"Failure: ${e.getMessage}")
+      actorSystem.terminate()
+  }
 
   // --------------------- END runnable graph ---------------------
 }
