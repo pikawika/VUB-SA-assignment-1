@@ -1,5 +1,4 @@
 package Lennert_Bontinck_SA1
-// ok
 
 /** Case class that represents a Maven dependency.
  * - library: the name of the library - String

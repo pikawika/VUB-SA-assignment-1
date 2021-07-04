@@ -1,5 +1,4 @@
 package Lennert_Bontinck_SA1
-// ok
 
 // Required imports
 import akka.NotUsed
@@ -14,19 +13,38 @@ object FlowDependenciesShapeParallel {
   val flowMavenDependencyToMavenDependencyCountParallel: Graph[FlowShape[MavenDependency, MavenDependencyCount], NotUsed] =
     Flow.fromGraph(GraphDSL.create() { implicit builder =>
 
-      // The shape has a balanced approach to send groups of dependencies of the same library to the two pipelines.
+      // --------------------------------------------------------
+      // | Configure balancer and merger
+      // --------------------------------------------------------
+
       val balancer = builder.add(Balance[MavenDependency](2))
       val merger = builder.add(Merge[MavenDependencyCount](2))
 
-      // Provide the flowMultipleMavenDependencyCountsToSingle to the builder
-      //    Provided in Flows object for easy reuse
+
+
+      // --------------------------------------------------------
+      // | Create single MavenDependencyCount
+      // --------------------------------------------------------
+
+      /** Provides the flowMultipleMavenDependencyCountsToSingle to the builder. */
       val toSingleMavenDependencyCount = builder.add(Flows.flowMultipleMavenDependencyCountsToSingle)
 
-      // Specify the custom flow shape
+
+
+      // --------------------------------------------------------
+      // | Create pipeline
+      // --------------------------------------------------------
+
+      // Uses flowMavenDependencyToMavenDependencyCount from FlowDependenciesShape to do the actual counting
       balancer ~> FlowDependenciesShape.flowMavenDependencyToMavenDependencyCount.async ~> merger
       balancer ~> FlowDependenciesShape.flowMavenDependencyToMavenDependencyCount.async ~> merger ~> toSingleMavenDependencyCount
 
-      // The final flow shape that returns the single resulting MavenDependencyCount per input
+
+
+      // --------------------------------------------------------
+      // | Make flow shape
+      // --------------------------------------------------------
+
       FlowShape(balancer.in, toSingleMavenDependencyCount.out)
     })
 }

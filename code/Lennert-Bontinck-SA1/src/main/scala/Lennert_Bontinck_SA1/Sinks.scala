@@ -1,5 +1,4 @@
 package Lennert_Bontinck_SA1
-// ok
 
 // Required imports
 import akka.Done

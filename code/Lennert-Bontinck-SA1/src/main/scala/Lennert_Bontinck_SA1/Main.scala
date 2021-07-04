@@ -1,5 +1,4 @@
 package Lennert_Bontinck_SA1
-// ok
 
 // Required imports
 import akka.actor.ActorSystem
@@ -10,17 +9,21 @@ import scala.concurrent.{ExecutionContextExecutor, Future}
 
 /** This is the main app that can be run to execute the code for the first assignment. */
 object Main extends App {
-  // --------------------- START actor system set-up ---------------------.
+
+  // --------------------------------------------------------------------------------------
+  // | Setup Actor System
+  // --------------------------------------------------------------------------------------
 
   // "Default" setup from WPOs, meaning 1 dispatcher per actor and same ActorMaterializer.
   implicit val actorSystem: ActorSystem = ActorSystem("Lennert-Bontinck-SA1-ActorSystem")
   implicit val dispatcher: ExecutionContextExecutor = actorSystem.dispatcher
   implicit val actorMaterializer: ActorMaterializer = ActorMaterializer()
 
-  // --------------------- END actor system set-up ---------------------
 
 
-  // --------------------- START runnable graph setup ---------------------
+  // --------------------------------------------------------------------------------------
+  // | Make main Runnable Graph of project
+  // --------------------------------------------------------------------------------------
 
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
   val runnableGraph: RunnableGraph[Future[IOResult]] =
@@ -43,13 +46,12 @@ object Main extends App {
       //        This was resolved after communication with the TA's.
       .toMat(Sinks.saveSink)(Keep.right)
 
-  // --------------------- END runnable graph setup ---------------------
 
 
-  // --------------------- START running graph ---------------------
+  // --------------------------------------------------------------------------------------
+  // | Execute main Runnable Graph of project
+  // --------------------------------------------------------------------------------------
 
   // Run graph and terminate on completion
   runnableGraph.run().onComplete(_ => actorSystem.terminate())
-
-  // --------------------- END running graph ---------------------
 }
