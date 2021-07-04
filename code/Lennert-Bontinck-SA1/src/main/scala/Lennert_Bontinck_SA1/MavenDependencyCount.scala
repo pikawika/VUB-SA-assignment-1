@@ -13,13 +13,13 @@ case class MavenDependencyCount(library: String = "Dummy name",
                                 runtime: Int = 0,
                                 test: Int = 0) {
 
-  /** Function to combine/merge a "new" MavenDependencyCount (MDC) to the current object, merging them */
-  def mergeMavenDependencyCount(newCount: MavenDependencyCount): MavenDependencyCount =
-    copy(library = newCount.library,
-      compile = compile + newCount.compile,
-      provided = provided + newCount.provided,
-      runtime = runtime + newCount.runtime,
-      test = test + newCount.test
+  /** Function to combine/merge a "new" MavenDependencyCount (MDC) to the current object */
+  def mergeMavenDependencyCount(newMDC: MavenDependencyCount): MavenDependencyCount =
+    copy(library = newMDC.library,
+      compile = compile + newMDC.compile,
+      provided = provided + newMDC.provided,
+      runtime = runtime + newMDC.runtime,
+      test = test + newMDC.test
     )
 }
 
