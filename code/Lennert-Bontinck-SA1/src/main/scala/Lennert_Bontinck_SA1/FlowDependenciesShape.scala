@@ -9,11 +9,11 @@ import akka.stream.{FlowShape, Graph}
 /** Object containing the custom flow shape responsible for counting the number of dependencies. */
 object FlowDependenciesShape {
   /** Custom flow shape that takes MavenDependency object(s) as input,
-   * counts it's dependencies and returns MavenLibraryDependencyCount object(s) as output. */
+   * counts it's dependencies and returns MavenDependencyCount object(s) as output. */
   val flowMavenDependencyToMavenDependencyCount: Graph[FlowShape[MavenDependency, MavenDependencyCount], NotUsed] = Flow.fromGraph(
     GraphDSL.create() { implicit builder =>
 
-      // Broadcaster and merger
+      // Broadcaster and merger, we make 4 pipelines, 1 per dependency as illustrated in the figure of the assignment.
       val broadcast = builder.add(Broadcast[MavenDependency](4))
       val merge = builder.add(Merge[MavenDependencyCount](4))
 
@@ -55,14 +55,9 @@ object FlowDependenciesShape {
 
 
       // --------------------- START create single ---------------------
-      // Convert stream of Maven Library Dependency Count objects to single Maven Library Dependency Count object
-      val formSingleMavenLibraryDependencyCount: Flow[MavenDependencyCount, MavenDependencyCount, NotUsed] = Flow[MavenDependencyCount]
-        // Make single object that adds all of the previously received classes
-        .fold(MavenDependencyCount())((crt_object, input_object) => crt_object.mergeMavenDependencyCount(input_object))
-        // Filter out objects that don't have any value
-        .filter(depCount => depCount.test != 0 || depCount.runtime != 0 || depCount.provided != 0 || depCount.compile != 0)
-
-      val toSingleCountingObject = builder.add(formSingleMavenLibraryDependencyCount)
+      // Provide the flowMultipleMavenDependencyCountsToSingle to the builder
+      //    Provided in Flows object for easy reuse
+      val toSingleMavenDependencyCount = builder.add(Flows.flowMultipleMavenDependencyCountsToSingle)
       // --------------------- END create single ---------------------
 
 
@@ -70,10 +65,10 @@ object FlowDependenciesShape {
       broadcast ~> flowComputeCompileDependency ~> merge
       broadcast ~> flowComputeProvidedDependency ~> merge
       broadcast ~> flowComputeRuntimeDependency ~> merge
-      broadcast ~> flowComputeTestDependency ~> merge ~> toSingleCountingObject
+      broadcast ~> flowComputeTestDependency ~> merge ~> toSingleMavenDependencyCount
 
       // Custom flow shape
-      FlowShape(broadcast.in, toSingleCountingObject.out)
+      FlowShape(broadcast.in, toSingleMavenDependencyCount.out)
       // --------------------- END pipeline ---------------------
     }
   )

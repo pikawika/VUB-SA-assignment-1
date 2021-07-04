@@ -17,7 +17,7 @@ object Sinks {
   val saveSink: Sink[ByteString, Future[IOResult]] =
     FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE))
 
-  /** Sink that displays input MavenLibraryDependencyCount object(s) to terminal */
+  /** Sink that displays input MavenDependencyCount object(s) to terminal */
   val displaySink: Sink[MavenDependencyCount, Future[Done]] =
     Sink.foreach(println)
 }

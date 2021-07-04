@@ -10,7 +10,7 @@ import scala.concurrent.Future
 /** Object having the extracted assignment file available as a source producing MavenDependency object(s) under source. */
 object MavenDependenciesSource {
   /** Source received from flowing the sourceOfByteStrings source from ExtractedFileSource through the MavenDependencies Composed Flow.
-   * This source produces MavenDependency object(s).  */
+   * This source produces MavenDependency object(s). */
   val source: Source[MavenDependency, Future[IOResult]] = ExtractedFileSource.sourceOfByteStrings
     .via(ListOfMavenDependencies.composedFlowExtractedFileToMavenDependencies)
 }

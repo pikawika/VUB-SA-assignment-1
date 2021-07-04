@@ -17,21 +17,21 @@ object MainDisplay extends App {
 
   // --------------------- START runnable graph ---------------------
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
-    //change Future to Done if using dummy sink, to IOResult if using save sink
+  //change Future to Done if using dummy sink, to IOResult if using save sink
   val runnableGraph: RunnableGraph[Future[Done]] =
-    MavenDependenciesSource.source
-      // Create substreams grouped which contain all records for a library.
-      //    Max substreams = Int.MAX per requirement of the assignment.
-      .groupBy(maxSubstreams = Int.MaxValue, _.library)
+  MavenDependenciesSource.source
+    // Create substreams grouped which contain all records for a library.
+    //    Max substreams = Int.MAX per requirement of the assignment.
+    .groupBy(maxSubstreams = Int.MaxValue, _.library)
 
-      // Push the substreams to the flow dependencies Flow Shape.
-      .via(FlowDependenciesShapeParallel.flowMavenDependencyToMavenDependencyCountParallel)
+    // Push the substreams to the flow dependencies Flow Shape.
+    .via(FlowDependenciesShapeParallel.flowMavenDependencyToMavenDependencyCountParallel)
 
-      // Merge the substreams back to a regular stream
-      .mergeSubstreams
+    // Merge the substreams back to a regular stream
+    .mergeSubstreams
 
-      // Display output
-      .toMat(Sinks.displaySink)(Keep.right)
+    // Display output
+    .toMat(Sinks.displaySink)(Keep.right)
 
   runnableGraph.run().onComplete(_ => actorSystem.terminate())
 
