@@ -54,9 +54,8 @@ object MainLoop extends App {
       .via(StringToByteEncoder.flowStringToByteString)
 
       // Save to save sink
-      //    NOTE: there were some issues due to using to instead of toMat.
-      //      This was resolved after communication with the TA's who pointed to:
-      //      https://stackoverflow.com/a/49012739
+      //    NOTE: there were some issues with using "to" instead of "toMat".
+      //      This was resolved after communication with the TA's.
       .toMat(saveSink)(Keep.right)
 
   // Run graph and terminate on completion

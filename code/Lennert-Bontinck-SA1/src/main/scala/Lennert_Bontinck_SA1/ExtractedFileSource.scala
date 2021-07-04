@@ -8,14 +8,22 @@ import akka.util.ByteString
 
 import scala.concurrent.Future
 
+/** Object having the extracted assignment file available as a source producing ByteString object(s) under sourceOfByteStrings. */
 object ExtractedFileSource {
-  /** Path of the folder containing the extracted file. */
+  /** Path of the folder containing the extracted file from the exercise. */
   private val pathExtractedFileFolder: String = "src/main/resources"
 
-  /** Path of the extracted file. */
-  //private val pathExtractedFile: Path = Paths.get(s"$pathExtractedFileFolder/maven_dependencies_first_1000.txt")
-  private val pathExtractedFile: Path = Paths.get(s"$pathExtractedFileFolder/maven_dependencies.txt")
+  /** Path of the original extracted file. */
+  private var pathExtractedFile: Path = Paths.get(s"$pathExtractedFileFolder/maven_dependencies.txt")
 
-  /** Make raw ByteString source from input file. */
-  val sourceExtractedFile: Source[ByteString, Future[IOResult]] = FileIO.fromPath(pathExtractedFile)
+  /** If wanted, one can use a shortened version of the given file by opting for it here.
+   * This can be handy for faster testing runs */
+  // when set to true, the shortened file is used instead of the provided file
+  private val useShortenedVersion = false
+  if(useShortenedVersion) {
+    pathExtractedFile = Paths.get(s"$pathExtractedFileFolder/maven_dependencies_first_1000.txt")
+  }
+
+  /** Make a source producing ByteString object(s) from the extracted assignment file available. */
+  val sourceOfByteStrings: Source[ByteString, Future[IOResult]] = FileIO.fromPath(pathExtractedFile)
 }

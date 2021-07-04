@@ -7,16 +7,16 @@ import akka.stream.alpakka.csv.scaladsl.{CsvParsing, CsvToMap}
 import akka.stream.scaladsl.Flow
 import akka.util.ByteString
 
+/** Object having the composed flow required to convert an input of ByteString object(s) to MavenDependency object(s)
+ * available under composedFlowExtractedFileToMavenDependencies. */
 object ListOfMavenDependencies {
-  /** Flow to convert raw Bytestring to a list of Bytestrings, using CSV Parser. */
+  /** Flow to convert ByteString object(s) to list(s) of ByteString objects, using CSV Parser. */
   private val flowCsvParsing: Flow[ByteString, List[ByteString], NotUsed] = CsvParsing.lineScanner()
 
-  /** Flow to convert a CSV parsed list of Bytestrings to a map of strings containing:
-   *    library, dependency and type. */
+  /** Flow to convert CSV parsed list(s) of ByteString objects to MavenDependency object(s). */
   private val flowCsvMapper: Flow[List[ByteString], Map[String, String], NotUsed] =
     CsvToMap.withHeadersAsStrings(StandardCharsets.UTF_8, "library", "dependency", "dependency_type")
 
-  /** Flow to convert a map of strings containing: library, dependency and type to a MavenDependency object. */
   private val flowMappedCsvToMavenDependency: Flow[Map[String, String], MavenDependency, NotUsed] = Flow[Map[String, String]]
     .filter(tempMap => {
       // Don't allow records which have empty values
