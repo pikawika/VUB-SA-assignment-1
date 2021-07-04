@@ -29,15 +29,10 @@ object MainDisplay extends App {
   //change Future to Done if using dummy sink, to IOResult if using save sink
   val runnableGraph: RunnableGraph[Future[Done]] =
   MavenDependenciesSource.source
-    // Create sub streams by grouping on library name
-    //    Max amount of sub streams is Int.MAX per requirement of the assignment.
-    .groupBy(maxSubstreams = Int.MaxValue, _.library)
 
-    // Push the sub streams through the FlowDependenciesShape Flow Shape.
-    .via(FlowDependenciesShapeParallel.flowMavenDependencyToMavenDependencyCountParallel)
-
-    // Merge the sub streams back to a regular (singular) stream
-    .mergeSubstreams
+    // Make use of flowMavenDependencyToMavenDependencyCount to go from
+    // MavenDependency source to collected dependencies.
+    .via(Flows.flowMavenDependencyToMavenDependencyCount)
 
     // Display output
     .toMat(Sinks.displaySink)(Keep.right)

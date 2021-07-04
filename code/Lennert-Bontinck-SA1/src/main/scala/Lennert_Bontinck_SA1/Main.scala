@@ -28,15 +28,10 @@ object Main extends App {
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
   val runnableGraph: RunnableGraph[Future[IOResult]] =
     MavenDependenciesSource.source
-      // Create sub streams by grouping on library name
-      //    Max amount of sub streams is Int.MAX per requirement of the assignment.
-      .groupBy(maxSubstreams = Int.MaxValue, _.library)
 
-      // Push the sub streams through the FlowDependenciesShape Flow Shape.
-      .via(FlowDependenciesShapeParallel.flowMavenDependencyToMavenDependencyCountParallel)
-
-      // Merge the sub streams back to a regular (singular) stream
-      .mergeSubstreams
+      // Make use of flowMavenDependencyToMavenDependencyCount to go from
+      // MavenDependency source to collected dependencies.
+      .via(Flows.flowMavenDependencyToMavenDependencyCount)
 
       // Convert to ByteString for saving
       .via(StringToByteEncoder.flowStringToByteString)

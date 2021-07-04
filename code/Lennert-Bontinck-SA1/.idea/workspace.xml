@@ -7,16 +7,10 @@
     <list default="true" id="1f08fb83-7db5-4a9a-9569-87929f36b5d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/result/Lennert-Bontinck-SA1-output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/result/Lennert-Bontinck-SA1-output.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/ExtractedFileSource.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/ExtractedFileSource.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/FlowDependenciesShape.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/FlowDependenciesShape.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/FlowDependenciesShapeParallel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/FlowDependenciesShapeParallel.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Flows.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Flows.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/ListOfMavenDependencies.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/ListOfMavenDependencies.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Main.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainDisplay.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainDisplay.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MavenDependency.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MavenDependency.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MavenDependencyCount.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MavenDependencyCount.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Sinks.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Sinks.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +65,7 @@
       <recent name="Lennert_Bontinck_SA1" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.MainDisplay">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Lennert_Bontinck_SA1.Main" />
       <module name="Lennert-Bontinck-SA1" />
@@ -113,8 +107,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.MainDisplay" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
