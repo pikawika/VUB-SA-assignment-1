@@ -9,20 +9,32 @@ In this folder and subfolders you will find all code for the first assignment of
 > - [Validated output](#validated-output)
 
 ## Student info
-> - **Name**: Bontinck Lennert
-> - **StudentID**: 568702
-> - **Affiliation**: VUB - Master Computer Science: AI
+- **Name**: Bontinck Lennert
+- **StudentID**: 568702
+- **Affiliation**: VUB - Master Computer Science: AI
 
 ## Notes on the code
-> - The code has been developed using IntelliJ IDEA and the "Scala" plugin by JetBrains.
->    - 
+- The code has been developed using IntelliJ IDEA and the "Scala" plugin by JetBrains.
+   - Used same base versions as WPO:
+      - JRE 1.8.291
+      - sbt 1.3.13
+   - Makes use of:
+      - akka-stream 2.5.32
+      - akka-actor 2.5.32
+      - akka-stream-alpakka-csv 2.0.2
+- Note the following structure for basic things in AKKA Streams:
+   - Source[Out, Materializer]
+   - Flow[In, Out, Materializer]
+   - Sink[In, Materializer]
 
 ## Validated output
-> - br.com.objectos:assertion:0.1.0 --> Compile: 9 Provided: 0 Runtime: 0 Test: 4
->    - Same as given!
-> - br.com.objectos:assertion:0.1.1 --> Compile: 9 Provided: 0 Runtime: 0 Test: 0
->    - Same as given!
-> - ai.grakn:grakn-test-profiles:1.1.0 --> Compile: 1 Provided: 0 Runtime: 0 Test: 0
->    - Same as given!
-> - br.com.objectos:assertion:0.1.2 --> Compile: 9 Provided: 0 Runtime: 0 Test: 0
->    - Same as given!
+Listed below is some validated output:
+
+- br.com.objectos:assertion:0.1.0 --> Compile: 9 Provided: 0 Runtime: 0 Test: 4
+   - Same as given!
+- br.com.objectos:assertion:0.1.1 --> Compile: 9 Provided: 0 Runtime: 0 Test: 0
+   - Same as given!
+- ai.grakn:grakn-test-profiles:1.1.0 --> Compile: 1 Provided: 0 Runtime: 0 Test: 0
+   - Same as given!
+- br.com.objectos:assertion:0.1.2 --> Compile: 9 Provided: 0 Runtime: 0 Test: 0
+   - Same as given!
