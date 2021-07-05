@@ -26,7 +26,24 @@ object Sinks {
   val textualMavenDependencyCountSaveSink: Sink[MavenDependencyCount, Future[IOResult]] =
     Flow[MavenDependencyCount]
       .via(Flows.flowMavenDependencyCountToTextualByteString)
-      .toMat(FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE)))(Keep.right)
+      .toMat(FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-dependencies.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE)))(Keep.right)
+
+
+
+
+
+  // --------------------------------------------------------
+  // | Textual MavenDependencyCount object(s) save sink
+  // --------------------------------------------------------
+  // This sink will save MavenDependencyStatistics in the required
+  //    textual representation.
+
+  /** Sink that displays input MavenDependencyCount object(s) to terminal in a textual manner */
+  val textualMavenDependencyStatisticsSaveSink: Sink[MavenDependencyCount, Future[IOResult]] =
+    Flow[MavenDependencyCount]
+      .via(Flows.flowMavenDependencyCountToMavenDependencyStatistics)
+      .via(Flows.flowMavenDependencyStatisticsToTextualByteString)
+      .toMat(FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-statistics.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE)))(Keep.right)
 
 
 
@@ -49,7 +66,7 @@ object Sinks {
   // --------------------------------------------------------
   // | Textual MavenDependencyCount object(s) display sink
   // --------------------------------------------------------
-  // This sink will display MavenDependencyCount in the required
+  // This sink will display MavenDependencyStatistics in the required
   //    textual representation.
 
   /** Sink that displays input MavenDependencyCount object(s) to terminal in a textual manner */

@@ -33,6 +33,9 @@ object Main extends App {
       // MavenDependency source to collected dependencies.
       .via(Flows.flowMavenDependencySourceToCollectedMavenDependencyCount)
 
+      // Materialize to save sink that stores textual representation of Statistics
+      .alsoToMat(Sinks.textualMavenDependencyStatisticsSaveSink)(Keep.right)
+
       // Materialize to save sink that stores textual representation of dependency count
       .toMat(Sinks.textualMavenDependencyCountSaveSink)(Keep.right)
 

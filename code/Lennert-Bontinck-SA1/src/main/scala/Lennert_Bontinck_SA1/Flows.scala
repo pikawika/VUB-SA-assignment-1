@@ -128,6 +128,27 @@ object Flows {
 
 
   // --------------------------------------------------------------------------------------
+  // | Flow to convert MavenDependencyStatistics object(s) to textual ByteString representation
+  // --------------------------------------------------------------------------------------
+  // This flow will convert MavenDependencyStatistics object(s) to a
+  //    textual ByteString representation in the form:
+  //        Considered minimum number of dependencies: #
+  //        Compile: #
+  //        Provided: #
+  //        Runtime: #
+  //        Test: #
+
+  /** Flow that converts MavenDependencyStatistics object(s) to a textual ByteString representation. */
+  val flowMavenDependencyStatisticsToTextualByteString: Flow[MavenDependencyStatistics, ByteString, NotUsed] =
+    Flow[MavenDependencyStatistics].map(MDS => {
+      ByteString(s"Considered minimum number of dependencies: ${MDS.minimumDependencies} \nCompile: ${MDS.compile}\nProvided: ${MDS.provided} \nRuntime: ${MDS.runtime}\nTest: ${MDS.test} ".getBytes("UTF-8"))
+    })
+
+
+
+
+
+  // --------------------------------------------------------------------------------------
   // | Flow to convert MavenDependencyCount object(s) to MavenDependencyStatistics object
   // --------------------------------------------------------------------------------------
   // This flow will convert MavenDependencyCount object(s) to a
