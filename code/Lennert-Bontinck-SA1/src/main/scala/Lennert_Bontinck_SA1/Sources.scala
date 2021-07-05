@@ -1,7 +1,6 @@
 package Lennert_Bontinck_SA1
 
 // Required imports
-
 import akka.stream.IOResult
 import akka.stream.scaladsl.{FileIO, Source}
 import akka.util.ByteString

@@ -1,7 +1,6 @@
 package Lennert_Bontinck_SA1
 
 // Required imports
-
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, IOResult}
 import akka.stream.scaladsl.{Keep, RunnableGraph}
