@@ -34,6 +34,9 @@ object MainDisplay extends App {
     // MavenDependency source to collected dependencies.
     .via(Flows.flowMavenDependencySourceToCollectedMavenDependencyCount)
 
+    // Display textual statistics of dependencies
+    .alsoToMat(Sinks.textualMavenDependencyStatisticsDisplaySink)(Keep.right)
+
     // Display textual representation of dependency count
     .toMat(Sinks.textualMavenDependencyCountDisplaySink)(Keep.right)
 

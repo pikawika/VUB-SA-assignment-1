@@ -122,4 +122,24 @@ object Flows {
     Flow[MavenDependencyCount].map(MDC => {
       ByteString(s"${MDC.library} --> Compile: ${MDC.compile} Provided: ${MDC.provided} Runtime: ${MDC.runtime} Test: ${MDC.test}\n".getBytes("UTF-8"))
     })
+
+
+
+
+
+  // --------------------------------------------------------------------------------------
+  // | Flow to convert MavenDependencyCount object(s) to MavenDependencyStatistics object
+  // --------------------------------------------------------------------------------------
+  // This flow will convert MavenDependencyCount object(s) to a
+  //    singular MavenDependencyStatistics object.
+
+  /** Temp */
+  val flowMavenDependencyCountToMavenDependencyStatistics: Flow[MavenDependencyCount, MavenDependencyStatistics, NotUsed] =
+    Flow[MavenDependencyCount]
+      // Make single MavenDependencyStatistics (MDS) object.
+      //    Does this by using addMavenDependencyCountToStatistic for all incoming MavenDependencyCount (MDC) objects.
+      //    One can change the minimum dependency amount to be considered in the statistic by changing it
+      //    in the initial constructor call here.
+      .fold(MavenDependencyStatistics(minimumDependencies = 2))((existingMDS, newMDC) =>
+        existingMDS.addMavenDependencyCountToStatistic(newMDC))
 }
