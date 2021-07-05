@@ -1,6 +1,7 @@
 package Lennert_Bontinck_SA1
 
 // Required imports
+
 import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.{Keep, RunnableGraph}
@@ -28,14 +29,17 @@ object MainDisplay extends App {
   /** Runnable Graph using the Maven Dependencies object list as source per requirement of the assignment. */
   //change Future to Done if using dummy sink, to IOResult if using save sink
   val runnableGraph: RunnableGraph[Future[Done]] =
-  MavenDependenciesSource.source
+  Sources.sourceOfMavenDependency
 
     // Make use of flowMavenDependencyToMavenDependencyCount to go from
     // MavenDependency source to collected dependencies.
-    .via(Flows.flowMavenDependencyToMavenDependencyCount)
+    .via(Flows.flowMavenDependencySourceToCollectedMavenDependencyCount)
+
+    // The graph needs to go to two sinks
+    .alsoToMat(Sinks.textualMavenDependencyCountDisplaySink)(Keep.right)
 
     // Display output
-    .toMat(Sinks.displaySink)(Keep.right)
+    .toMat(Sinks.textualMavenDependencyCountDisplaySink)(Keep.right)
 
 
 

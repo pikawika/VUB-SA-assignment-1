@@ -13,10 +13,10 @@ import scala.concurrent.Future
 /** Object having the required sinks for the assignment. */
 object Sinks {
   /** Sink that saves input ByteString object(s) to disk */
-  val saveSink: Sink[ByteString, Future[IOResult]] =
+  val textualMavenDependencyCountSaveSink: Sink[ByteString, Future[IOResult]] =
     FileIO.toPath(Paths.get("src/main/resources/result/Lennert-Bontinck-SA1-output.txt"), Set(WRITE, TRUNCATE_EXISTING, CREATE))
 
   /** Sink that displays input MavenDependencyCount object(s) to terminal */
-  val displaySink: Sink[MavenDependencyCount, Future[Done]] =
+  val textualMavenDependencyCountDisplaySink: Sink[MavenDependencyCount, Future[Done]] =
     Sink.foreach(println)
 }
