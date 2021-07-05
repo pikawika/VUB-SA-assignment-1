@@ -1,7 +1,6 @@
 package Lennert_Bontinck_SA1
 
 // Required imports
-
 import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.{Keep, RunnableGraph}
@@ -35,10 +34,7 @@ object MainDisplay extends App {
     // MavenDependency source to collected dependencies.
     .via(Flows.flowMavenDependencySourceToCollectedMavenDependencyCount)
 
-    // The graph needs to go to two sinks
-    .alsoToMat(Sinks.textualMavenDependencyCountDisplaySink)(Keep.right)
-
-    // Display output
+    // Display textual representation of dependency count
     .toMat(Sinks.textualMavenDependencyCountDisplaySink)(Keep.right)
 
 

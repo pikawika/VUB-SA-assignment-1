@@ -119,7 +119,7 @@ object Flows {
 
   /** Flow that converts MavenDependencyCount object(s) to a textual ByteString representation. */
   val flowMavenDependencyCountToTextualByteString: Flow[MavenDependencyCount, ByteString, NotUsed] =
-    Flow[MavenDependencyCount].map(libraryCount => {
-      ByteString(s"${libraryCount.library} --> Compile: ${libraryCount.compile} Provided: ${libraryCount.provided} Runtime: ${libraryCount.runtime} Test: ${libraryCount.test}\n".getBytes("UTF-8"))
+    Flow[MavenDependencyCount].map(MDC => {
+      ByteString(s"${MDC.library} --> Compile: ${MDC.compile} Provided: ${MDC.provided} Runtime: ${MDC.runtime} Test: ${MDC.test}\n".getBytes("UTF-8"))
     })
 }

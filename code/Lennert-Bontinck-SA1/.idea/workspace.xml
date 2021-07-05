@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f08fb83-7db5-4a9a-9569-87929f36b5d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/FlowShapes.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Sources.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/ExtractedFileSource.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/FlowDependenciesShape.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/FlowDependenciesShapeParallel.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/result/Lennert-Bontinck-SA1-output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/result/Lennert-Bontinck-SA1-output.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Flows.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Flows.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/ListOfMavenDependencies.scala" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Main.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainDisplay.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MainDisplay.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/MavenDependenciesSource.scala" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Sinks.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Sinks.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/StringToByteEncoder.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Sources.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Lennert_Bontinck_SA1/Sources.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +66,7 @@
       <recent name="Lennert_Bontinck_SA1" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainDisplay">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Lennert_Bontinck_SA1.Main" />
       <module name="Lennert-Bontinck-SA1" />
@@ -112,8 +106,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainDisplay" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MainDisplay" />
       </list>
     </recent_temporary>
   </component>
@@ -134,7 +128,7 @@
       <workItem from="1625155655823" duration="417000" />
       <workItem from="1625414917337" duration="80000" />
       <workItem from="1625415192490" duration="8748000" />
-      <workItem from="1625496157338" duration="2699000" />
+      <workItem from="1625496157338" duration="4058000" />
     </task>
     <servers />
   </component>

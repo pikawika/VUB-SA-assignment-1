@@ -4,7 +4,7 @@ package Lennert_Bontinck_SA1
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, IOResult}
-import akka.stream.scaladsl.{RunnableGraph, Keep}
+import akka.stream.scaladsl.{Keep, RunnableGraph}
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 
@@ -30,16 +30,11 @@ object Main extends App {
   val runnableGraph: RunnableGraph[Future[IOResult]] =
     Sources.sourceOfMavenDependency
 
-      // Make use of flowMavenDependencyToMavenDependencyCount to go from
+      // Make use of flowMavenDependencySourceToCollectedMavenDependencyCount to go from
       // MavenDependency source to collected dependencies.
       .via(Flows.flowMavenDependencySourceToCollectedMavenDependencyCount)
 
-      // Convert to ByteString for saving
-      .via(Flows.flowMavenDependencyCountToTextualByteString)
-
-      // Save to save sink
-      // NOTE:  There were some issues with using "to" instead of "toMat".
-      //        This was resolved after communication with the TA's.
+      // Materialize to save sink that stores textual representation of dependency count
       .toMat(Sinks.textualMavenDependencyCountSaveSink)(Keep.right)
 
 

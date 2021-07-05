@@ -28,7 +28,7 @@ object Sources {
   /** If wanted, one can use a shortened version of the given file by opting for it here.
    * This can be handy for faster testing runs */
   // when set to true, the shortened file is used instead of the provided file
-  private val useShortenedVersion = true
+  private val useShortenedVersion = false
   if (useShortenedVersion) {
     pathExtractedFile = Paths.get(s"$pathExtractedFileFolder/maven_dependencies_first_1000.txt")
   }
