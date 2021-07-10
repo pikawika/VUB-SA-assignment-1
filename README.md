@@ -15,4 +15,4 @@ This is the GitHub repository for the first assignment of the Software Architect
 ## Important files
 > - [Self-contained PDF file (coming soon)](Lennert-Bontinck-SA1.pdf)
 > - [Written code](code/)
-> - [Assignment PDF](assignment01.pdf)
+> - [Assignment PDF](assignment.pdf)
