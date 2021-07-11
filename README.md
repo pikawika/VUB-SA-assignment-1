@@ -6,6 +6,9 @@ This is the GitHub repository for the first assignment of the Software Architect
 
 > - [Student info](#student-info)
 > - [Important files and folders](#important-files-and-folders)
+> - [Notes on the code](#notes-on-the-code)
+> - [Running the code](#running-the-code)
+> - [Validated output](#validated-output)
 
 ## Student info
 - **Name**: Bontinck Lennert
