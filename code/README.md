@@ -15,17 +15,13 @@ In this folder and subfolders you will find all code for the first assignment of
 
 ## Notes on the code
 - The code has been developed using IntelliJ IDEA and the "Scala" plugin by JetBrains.
-   - Used same base versions as WPO:
-      - JRE 1.8.291
-      - sbt 1.3.13
-   - Makes use of:
-      - akka-stream 2.5.32
-      - akka-actor 2.5.32
-      - akka-stream-alpakka-csv 2.0.2
-- Note the following structure for basic things in AKKA Streams:
-   - Source[Out, Materializer]
-   - Flow[In, Out, Materializer]
-   - Sink[In, Materializer]
+- Used same base software versions as WPO:
+   - JRE and JDK 1.8.291
+   - sbt 1.3.13
+- Makes use of:
+   - akka-stream 2.5.32
+   - akka-actor 2.5.32
+   - akka-stream-alpakka-csv 2.0.2
 
 ## Validated output
 Listed below is some validated output:
