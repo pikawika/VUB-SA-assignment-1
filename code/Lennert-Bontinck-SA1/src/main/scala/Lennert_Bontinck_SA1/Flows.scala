@@ -154,7 +154,7 @@ object Flows {
   // This flow will convert MavenDependencyCount object(s) to a
   //    singular MavenDependencyStatistics object.
 
-  /** Temp */
+  /** This flow will convert MavenDependencyCount object(s) to a singular MavenDependencyStatistics object. */
   val flowMavenDependencyCountToMavenDependencyStatistics: Flow[MavenDependencyCount, MavenDependencyStatistics, NotUsed] =
     Flow[MavenDependencyCount]
       // Make single MavenDependencyStatistics (MDS) object.
